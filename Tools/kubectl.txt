@@ -1,0 +1,8 @@
+Para linux
+-> https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/
+
+Usando chocolatey
+-> choco install kubernetes-cli
+
+Para Windows
+-> https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/

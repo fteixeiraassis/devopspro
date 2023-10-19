@@ -1,0 +1,17 @@
+version: '3.8'
+
+networks:
+  my_net:
+    driver: bridge
+
+services:
+  wordpress:
+    image: fteixeiraassis/conversao-temperatura:latest
+    build:
+      dockerfile: ./Dockerfile
+      context: ./src
+    container_name: conversao-temperatura
+    ports:
+      - 8080:8080
+    networks:
+      - my_net

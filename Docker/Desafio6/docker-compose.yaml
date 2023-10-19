@@ -5,7 +5,7 @@ networks:
     driver: bridge
 
 services:
-  wordpress:
+  conversao-temperatura:
     image: fteixeiraassis/conversao-temperatura:latest
     build:
       dockerfile: ./Dockerfile

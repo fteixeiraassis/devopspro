@@ -1,0 +1,56 @@
+version: '3'
+
+volumes:
+  mongodb_data:
+
+networks:
+  mongodb:
+    driver: bridge
+  my_net:
+    driver: bridge
+
+services:
+  mongo-express:
+    image: mongo-express
+    depends_on:
+      - mongo
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_BASICAUTH_USERNAME: fabianoteixeira
+      ME_CONFIG_BASICAUTH_PASSWORD: DevopsPro2023!
+      ME_CONFIG_MONGODB_SERVER: mongo
+      #ME_CONFIG_MONGODB_PORT: 27017
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: password
+    links:
+      - mongo
+    networks:
+      - mongodb
+
+  mongo:
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - mongodb
+
+  rotten-potatoes:
+    image: fteixeiraassis/rotten-potatoes:latest
+    depends_on:
+      - mongo
+    build:
+      dockerfile: ./Dockerfile
+      context: ./src
+    container_name: rotten-potatoes
+    ports:
+      - 5000:5000
+    networks:
+      - my_net
+      - mongodb
+
